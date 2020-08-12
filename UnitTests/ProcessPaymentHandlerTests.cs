@@ -18,8 +18,6 @@ namespace UnitTests
             _bankApi = Substitute.For<IBankAPI>();
         }
         
-        // Future Josh: You will want to care about the logging call
-        
         [Fact]
         public void GivenAPaymentRequest_IfAcceptedByTheBank_ShouldReturnSuccessful()
         {
@@ -68,6 +66,40 @@ namespace UnitTests
 
             // assert 
             Assert.Equal("Duplicate request.", ex.Message);
+        }
+        
+        [Fact]
+        public void GivenAPaymentRequestThatSucceeds_ThenRequestLogged_AndLoggedDetailsShowSuccess()
+        {
+            // arrange
+            var paymentRequest = new PaymentRequest();
+
+            _bankApi.MakePayment(paymentRequest).Returns(true);
+            
+            var handler = new ProcessPaymentHandler(_paymentHistoryRepo, _bankApi);
+
+            // act
+            handler.Handle(paymentRequest);
+            
+            // assert
+            _paymentHistoryRepo.Received(1).LogPayment(Arg.Is<LoggedPaymentRequest>(x => Equals(x.Success, true)));
+        }
+        
+        [Fact]
+        public void GivenAPaymentRequestThatSucceeds_ThenRequestLogged_AndLoggedDetailsShowFailure()
+        {
+            // arrange
+            var paymentRequest = new PaymentRequest();
+
+            _bankApi.MakePayment(paymentRequest).Returns(false);
+            
+            var handler = new ProcessPaymentHandler(_paymentHistoryRepo, _bankApi);
+
+            // act
+            handler.Handle(paymentRequest);
+            
+            // assert
+            _paymentHistoryRepo.Received(1).LogPayment(Arg.Is<LoggedPaymentRequest>(x => Equals(x.Success, false)));
         }
     }
 }
