@@ -1,5 +1,6 @@
 {
   "name": "AcceptanceTests",
+  "private": true,
   "version": "1.0.0",
   "description": "This could have useful information Josh. But no, just waffle. ",
   "main": "index.js",
