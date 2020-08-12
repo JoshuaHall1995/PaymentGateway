@@ -8,15 +8,17 @@ namespace PaymentGateway.Validators
     {
         public ProcessPaymentValidator()
         {
-            RuleFor(x => x.CardNumber).NotNull();
-            RuleFor(x => Regex.IsMatch(x.CardNumber, @"^\d+$")).Equal(true);
-            RuleFor(x => x.CVV).NotNull();
-            RuleFor(x => Regex.IsMatch(x.CVV, @"^\d+$"));
+            RuleFor(x => x.CardNumber != null && Regex.IsMatch(x.CardNumber, @"^\d+$")).NotEqual(false);
+            RuleFor(x => x.CVV != null && Regex.IsMatch(x.CVV, @"^\d+$")).NotEqual(false);
+            RuleFor(x => x.Amount != null && IsDouble(x.Amount)).NotEqual(false);
             RuleFor(x => x.RequestId).NotNull();
             RuleFor(x => x.RequestType).NotNull();
             RuleFor(x => x.ExpiryDate).NotNull();
-            RuleFor(x => x.Amount).NotNull();
-            // Amount not a valid number
+        }
+
+        private bool IsDouble(string value)
+        {
+            return double.TryParse(value, out _);
         }
     }
 }

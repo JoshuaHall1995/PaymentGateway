@@ -1,4 +1,5 @@
 using System;
+using System.Text.RegularExpressions;
 using PaymentGateway.Models;
 using PaymentGateway.Validators;
 using Xunit;
@@ -16,6 +17,7 @@ namespace UnitTests
             
             // act
             var result = validator.Validate(paymentRequest);
+            
 
             // assert
             Assert.True(result.IsValid);
@@ -73,6 +75,8 @@ namespace UnitTests
             var validator = new ProcessPaymentValidator();
             var paymentRequest = BuildValidTestPaymentRequest();
             paymentRequest.CVV = "12345hello";
+            
+            var test = Regex.IsMatch(paymentRequest.CVV, @"^\d+$");
 
             // act
             var result = validator.Validate(paymentRequest);

@@ -1,18 +1,21 @@
 using System.Net.Http;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Extensions.Http;
+using Newtonsoft.Json;
 using PaymentGateway.DataAccess;
 using PaymentGateway.Exceptions;
 using PaymentGateway.Handlers;
 using PaymentGateway.Models;
+using PaymentGateway.Validators;
 
 namespace PaymentGateway
 {
     public static class ProcessPaymentFunction
     {
         [FunctionName("ProcessPayment")]
-        public static IActionResult Status([HttpTrigger(
+        public static async Task<IActionResult> Status([HttpTrigger(
                 AuthorizationLevel.Function,
                 "POST",
                 Route = "fakeBank/payment/")]
@@ -27,7 +30,13 @@ namespace PaymentGateway
 
             try
             {
-                var paymentRequest = new PaymentRequest();
+                var paymentRequest = DeserializeRequestFromBody(await request.Content.ReadAsStringAsync());
+                
+                var validation = new ProcessPaymentValidator().Validate(paymentRequest);
+                if (!validation.IsValid)
+                {
+                    return new BadRequestObjectResult(JsonConvert.SerializeObject(validation.Errors));
+                }
                 
                 var isCompleted = handler.Handle(paymentRequest);
                 
@@ -40,6 +49,22 @@ namespace PaymentGateway
             {
                 return new BadRequestObjectResult(ex.Message);
             }
+        }
+        
+        private static PaymentRequest DeserializeRequestFromBody(string json)
+        {
+            PaymentRequest request;
+            try
+            {
+                JsonSerializerSettings settings = new JsonSerializerSettings();
+                request = JsonConvert.DeserializeObject<PaymentRequest>(json, settings);
+            }
+            catch (JsonSerializationException)
+            {
+                throw new BadRequestException("Invalid body");
+            }
+
+            return request;
         }
     }
 }
