@@ -6,6 +6,7 @@ namespace PaymentGateway.DataAccess
     {
         public bool MakePayment(PaymentRequest request)
         {
+            // These would either be http calls to another APi running locally or to a cloud based deployment
             return true;
         }
 
