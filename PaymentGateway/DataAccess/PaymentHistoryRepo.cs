@@ -6,12 +6,11 @@ namespace PaymentGateway.DataAccess
     {
         public void LogPayment(LoggedPaymentRequest request)
         {
-            throw new System.NotImplementedException();
         }
 
         public bool IsDuplicate(string PaymentId)
         {
-            throw new System.NotImplementedException();
+            return false;
         }
     }
 }

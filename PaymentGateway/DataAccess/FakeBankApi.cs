@@ -6,12 +6,12 @@ namespace PaymentGateway.DataAccess
     {
         public bool MakePayment(PaymentRequest request)
         {
-            throw new System.NotImplementedException();
+            return true;
         }
 
         public FakeBankHistoricalPaymentRequest FetchPaymentDetails(string paymentId)
         {
-            throw new System.NotImplementedException();
+            return new FakeBankHistoricalPaymentRequest();
         }
     }
 }
