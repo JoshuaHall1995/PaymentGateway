@@ -1,4 +1,4 @@
-using System;
+using PaymentGateway.Exceptions;
 using PaymentGateway.Models;
 
 namespace PaymentGateway.Handlers
@@ -16,14 +16,20 @@ namespace PaymentGateway.Handlers
         
         public bool Handle(PaymentRequest paymentRequest)
         {
-            // is duplicate
-            
-            // attempt payment (assume response bool although in reality will prob be http)
-            
-            // log request with result
-            
-            // return result
-            throw new NotImplementedException();
+            if (_paymentHistoryRepo.IsDuplicate(paymentRequest.RequestId))
+                throw new BadRequestException("Duplicate request.");
+
+            var isSuccessfulPayment = _bankApi.MakePayment(paymentRequest);
+            //(assume response bool for simplicity although in reality will prob be http)
+
+            if (isSuccessfulPayment)
+            {
+                _paymentHistoryRepo.LogPayment(Utils.MapToLoggedPaymentRequest(paymentRequest, true));
+                return true;
+            }
+
+            _paymentHistoryRepo.LogPayment(Utils.MapToLoggedPaymentRequest(paymentRequest, false));
+            return false;
         }
     }
 }
