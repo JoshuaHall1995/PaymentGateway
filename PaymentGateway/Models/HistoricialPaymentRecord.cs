@@ -12,7 +12,7 @@ namespace PaymentGateway.Models
         public string RequestId { get; set; }
         // Use Json Property later to make sure this returns as "CardNumber" to user but looks like hashed for us. 
         public string HashedCardNumber { get; set; }
-        public decimal Amount { get; set; }
+        public double Amount { get; set; }
         public bool Success { get; set; }
     }
 }

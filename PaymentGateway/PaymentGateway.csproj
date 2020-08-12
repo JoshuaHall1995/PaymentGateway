@@ -6,6 +6,7 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <PackageReference Include="FluentValidation" Version="9.1.1" />
       <PackageReference Include="Microsoft.Azure.WebJobs.Extensions.Http" Version="3.0.2" />
       <PackageReference Include="Microsoft.NET.Sdk.Functions" Version="3.0.9" />
     </ItemGroup>

@@ -7,7 +7,7 @@ namespace PaymentGateway.Models
         public string RequestId { get; set; }
         public string HashedCardNumber { get; set; }
         // Obvs dont want to store the card number ourselves. That is extra risk.
-        public decimal Amount { get; set; }
+        public double Amount { get; set; }
         public string RequestType { get; set; }
         public DateTimeOffset Timestamp { get; set; }
         public bool Success { get; set; }

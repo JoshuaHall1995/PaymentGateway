@@ -22,7 +22,7 @@ namespace PaymentGateway
         {
             return new LoggedPaymentRequest
             {
-                Amount = request.Amount,
+                Amount = Convert.ToDouble(request.Amount),
                 HashedCardNumber = HashCardNumber(request.CardNumber),
                 RequestId = request.RequestId,
                 RequestType = request.RequestType,
@@ -37,7 +37,7 @@ namespace PaymentGateway
         {
             return new HistoricalPaymentRecord
             {
-                Amount = request.Amount,
+                Amount = Convert.ToDouble(request.Amount),
                 HashedCardNumber = HashCardNumber(request.CardNumber),
                 RequestId = request.RequestId,
                 Success = request.Success
