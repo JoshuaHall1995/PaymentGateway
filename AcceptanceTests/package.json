@@ -1,0 +1,22 @@
+{
+  "name": "AcceptanceTests",
+  "version": "1.0.0",
+  "description": "This could have useful information Josh. But no, just waffle. ",
+  "main": "index.js",
+  "scripts": {
+    "test": "cucumber-js -f node_modules/cucumber-pretty"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "cucumber": "^6.0.5",
+    "cucumber-pretty": "^6.0.0",
+    "hamjest": "^3.7.1"
+  },
+  "dependencies": {
+    "dotenv": "^8.2.0",
+    "node-fetch": "^2.6.0",
+    "uuid": "^8.3.0"
+  }
+}
