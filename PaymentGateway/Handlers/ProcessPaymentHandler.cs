@@ -1,3 +1,5 @@
+using PaymentGateway.Models;
+
 namespace PaymentGateway.Handlers
 {
     public class MakePaymentHandler
@@ -11,7 +13,7 @@ namespace PaymentGateway.Handlers
             _bankApi = bankApi;
         }
         
-        public void Handle()
+        public void Handle(PaymentRequest paymentRequest)
         {
             // is duplicate
             
