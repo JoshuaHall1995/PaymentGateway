@@ -75,25 +75,27 @@ namespace UnitTests
         public void GivenPaymentRequestToRetrieve_IfItExistsWithBank_ShouldReturnHashedCardNumber()
         {
             // arrange
-            var handler = new GetPaymentHandler(_bankApi);
-            
-            var paymentRequest = new PaymentRequest();
+            var expectedPaymentRequestId = Guid.NewGuid().ToString();
+            var paymentRequest = BuildTestPaymentRequestResponse(expectedPaymentRequestId, true, "hashTest");
             var expectedHashedCardNumber = Utils.HashCardNumber(paymentRequest.CardNumber);
+            _bankApi.FetchPaymentDetails(expectedPaymentRequestId).Returns(paymentRequest);
             
+            var handler = new GetPaymentHandler(_bankApi);
             // act
-            var result = handler.Handle("id");
+            var result = handler.Handle(expectedPaymentRequestId);
             
             // assert
             Assert.Equal(expectedHashedCardNumber, result.HashedCardNumber);
         }
         
-        private static PaymentRequest BuildTestPaymentRequestResponse(string expectedPaymentRequestId, 
+        private static FakeBankHistoricalPaymentRequest BuildTestPaymentRequestResponse(string expectedPaymentRequestId, 
             bool isSuccess, string cardNumber = "fakeCardNumber")
         {
-            return new PaymentRequest
+            return new FakeBankHistoricalPaymentRequest
             {
                 RequestId = expectedPaymentRequestId,
-                CardNumber = cardNumber
+                CardNumber = cardNumber,
+                Success = isSuccess
             };
         }
         

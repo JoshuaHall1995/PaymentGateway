@@ -13,8 +13,9 @@ namespace PaymentGateway
 
         public static string HashCardNumber(string cardNumber)
         {
-            // Change all chars to * aside from final 4 digits
-            return null;
+            var length = cardNumber.Length;
+            return new string('*', length - 4) + cardNumber.Substring(length - 4);
+
         }
 
         public static LoggedPaymentRequest MapToLoggedPaymentRequest(PaymentRequest request, bool isSuccess)
@@ -27,6 +28,19 @@ namespace PaymentGateway
                 RequestType = request.RequestType,
                 Timestamp = DateTimeOffset.UtcNow,
                 Success = isSuccess
+            };
+        }
+        
+        // Duplicate functionality to above but as mentioned elsewhere the above would be stored elsewhere in a
+        // real implementation. 
+        public static HistoricalPaymentRecord MapToHistoricalPaymentRecord(FakeBankHistoricalPaymentRequest request)
+        {
+            return new HistoricalPaymentRecord
+            {
+                Amount = request.Amount,
+                HashedCardNumber = HashCardNumber(request.CardNumber),
+                RequestId = request.RequestId,
+                Success = request.Success
             };
         }
     }

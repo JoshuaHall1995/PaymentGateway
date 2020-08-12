@@ -1,4 +1,5 @@
 using System;
+using PaymentGateway.Exceptions;
 using PaymentGateway.Models;
 
 namespace PaymentGateway.Handlers
@@ -14,14 +15,12 @@ namespace PaymentGateway.Handlers
 
         public HistoricalPaymentRecord Handle(string paymentId)
         {
-         
-            // call getPayment
-            
-            // hash CardNumber
-            
-            // map to the expected response.
-            
-            throw new NotImplementedException();
+            var previousPayment = _bankApi.FetchPaymentDetails(paymentId);
+
+            if (previousPayment == null)
+                throw new NotFoundException();
+
+            return Utils.MapToHistoricalPaymentRecord(previousPayment); // Mapper could arguably live in this class. 
         }
         
         // This handler is looking to the external BankApi instead of our own payment records just for maximum
