@@ -1,6 +1,6 @@
 using PaymentGateway.Models;
 
-namespace PaymentGateway
+namespace PaymentGateway.DataAccess
 {
     public interface IPaymentHistoryRepo
     {

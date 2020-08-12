@@ -1,4 +1,5 @@
 using System;
+using PaymentGateway.DataAccess;
 using PaymentGateway.Exceptions;
 using PaymentGateway.Models;
 
@@ -8,7 +9,7 @@ namespace PaymentGateway.Handlers
     {
         private readonly IBankAPI _bankApi;
 
-        public GetPaymentHandler( IBankAPI bankApi)
+        public GetPaymentHandler(IBankAPI bankApi)
         {
             _bankApi = bankApi;
         }

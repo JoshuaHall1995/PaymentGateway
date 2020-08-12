@@ -2,6 +2,7 @@ using System;
 using NSubstitute;
 using NSubstitute.ReturnsExtensions;
 using PaymentGateway;
+using PaymentGateway.DataAccess;
 using PaymentGateway.Exceptions;
 using PaymentGateway.Handlers;
 using PaymentGateway.Models;
@@ -28,7 +29,6 @@ namespace UnitTests
             
             var handler = new GetPaymentHandler(_bankApi);
 
-            
             // act
             var result = handler.Handle(expectedPaymentRequestId);
             

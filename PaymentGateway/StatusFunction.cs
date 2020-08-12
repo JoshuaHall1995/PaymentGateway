@@ -10,7 +10,7 @@ namespace PaymentGateway
         [FunctionName("Status")]
         public static IActionResult Status([HttpTrigger(
                 AuthorizationLevel.Function,
-                "GET",
+                "GET", // Could be HEAD
                 Route = "status")]
             HttpRequestMessage request)
         {

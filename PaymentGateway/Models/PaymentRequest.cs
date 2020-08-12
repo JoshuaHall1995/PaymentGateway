@@ -8,11 +8,12 @@ namespace PaymentGateway.Models
         public string CVV { get; set; }
         public string RequestType { get; set; } 
         // Would be Sandbox if test request, easier for routing and is a practice I have seen in multiple third party Apis.
-        // Could be an enum stored in a common package. A string is fine for now. 
+        // Could be an enum stored in a common package. A string is fine for now. Or this could be used as a query param
+        // so we can check on each endpoint if it is a sandbox then reroute it to the FakeBankApi in the future for testing.
         public string RequestId { get; set; } 
         // In this imaginary world when each payment is created they provide us a id. This could be a guid they
         // create for each request or a combination of ISO timestamp and payment details. This is to make tracking
-        // previous transactions easier and for duplicate identifiaction. 
+        // previous transactions easier and for duplicate identifaction. 
 
     }
 }
