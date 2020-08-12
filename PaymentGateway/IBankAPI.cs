@@ -1,8 +1,10 @@
+using PaymentGateway.Models;
+
 namespace PaymentGateway
 {
     public interface IBankAPI
     {
-        void MakePayment();
+        bool MakePayment(PaymentRequest request);
         void FetchPaymentDetails();
     }
 }

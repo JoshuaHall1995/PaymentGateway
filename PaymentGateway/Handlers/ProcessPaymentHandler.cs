@@ -1,19 +1,20 @@
+using System;
 using PaymentGateway.Models;
 
 namespace PaymentGateway.Handlers
 {
-    public class MakePaymentHandler
+    public class ProcessPaymentHandler
     {
         private readonly IPaymentHistoryRepo _paymentHistoryRepo;
         private readonly IBankAPI _bankApi;
 
-        public MakePaymentHandler(IPaymentHistoryRepo paymentHistoryRepo, IBankAPI bankApi)
+        public ProcessPaymentHandler(IPaymentHistoryRepo paymentHistoryRepo, IBankAPI bankApi)
         {
             _paymentHistoryRepo = paymentHistoryRepo;
             _bankApi = bankApi;
         }
         
-        public void Handle(PaymentRequest paymentRequest)
+        public bool Handle(PaymentRequest paymentRequest)
         {
             // is duplicate
             
@@ -22,6 +23,7 @@ namespace PaymentGateway.Handlers
             // log request with result
             
             // return result
+            throw new NotImplementedException();
         }
     }
 }

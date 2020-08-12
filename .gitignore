@@ -4,3 +4,4 @@ PaymentGateway/obj
 .idea/.idea.MerchantPaymentGateway
 IntegrationTests/obj
 UnitTests/obj
+UnitTests/bin
