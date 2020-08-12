@@ -1,3 +1,4 @@
 AcceptanceTests/node_modules
 PaymentGateway/bin
 PaymentGateway/obj
+.idea/.idea.MerchantPaymentGateway
