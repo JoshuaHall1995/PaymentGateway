@@ -5,6 +5,6 @@ namespace PaymentGateway
     public interface IBankAPI
     {
         bool MakePayment(PaymentRequest request);
-        void FetchPaymentDetails();
+        FakeBankHistoricalPaymentRequest FetchPaymentDetails(string paymentId);
     }
 }

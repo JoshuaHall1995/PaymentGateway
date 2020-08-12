@@ -11,7 +11,7 @@ namespace PaymentGateway
         
         // Aka Acceptance Test on GetPaymentRequest would be able to check the card number is returned as a hash etc
 
-        private static string HashCardNumber(string cardNumber)
+        public static string HashCardNumber(string cardNumber)
         {
             // Change all chars to * aside from final 4 digits
             return null;
