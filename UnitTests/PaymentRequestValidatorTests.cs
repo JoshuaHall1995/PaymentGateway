@@ -6,7 +6,7 @@ using Xunit;
 
 namespace UnitTests
 {
-    public class PaymentRequestValidatorTests
+    public class PaymentRequestValidatorTests : ShouldBase
     {
         [Fact]
         public void GivenValidPaymentRequest_ShouldReturnIsValid()
@@ -177,21 +177,6 @@ namespace UnitTests
 
             // assert
             Assert.False(result.IsValid);
-        }
-        
-        
-        private static PaymentRequest BuildValidTestPaymentRequest()
-        {
-            return new PaymentRequest
-            {
-                CardNumber = "111111111111",
-                CVV = "111",
-                Amount = "12.12",
-                ExpiryDate = "Test",
-                RequestId = Guid.NewGuid().ToString(),
-                RequestType = "Sandbox",
-                Currency = "GBP"
-            };
         }
     }
 }

@@ -1,5 +1,4 @@
 ﻿using NSubstitute;
-using PaymentGateway;
 using PaymentGateway.DataAccess;
 using PaymentGateway.Exceptions;
 using PaymentGateway.Handlers;
@@ -8,7 +7,7 @@ using Xunit;
 
 namespace UnitTests
 {
-    public class ProcessPaymentHandlerTests
+    public class ProcessPaymentHandlerTests : ShouldBase
     {
         private IPaymentHistoryRepo _paymentHistoryRepo;
         private IBankAPI _bankApi;
@@ -23,7 +22,7 @@ namespace UnitTests
         public void GivenAPaymentRequest_IfAcceptedByTheBank_ShouldReturnSuccessful()
         {
             // arrange
-            var paymentRequest = new PaymentRequest();
+            var paymentRequest = BuildValidTestPaymentRequest();
 
             _bankApi.MakePayment(paymentRequest).Returns(true);
             
@@ -40,7 +39,7 @@ namespace UnitTests
         public void GivenAPaymentRequest_IfRejectedByBank_ShouldReturnUnsuccessful()
         {
             // arrange
-            var paymentRequest = new PaymentRequest();
+            var paymentRequest = BuildValidTestPaymentRequest();
 
             _bankApi.MakePayment(paymentRequest).Returns(false);
             
@@ -60,7 +59,7 @@ namespace UnitTests
             _paymentHistoryRepo.IsDuplicate(Arg.Any<string>()).Returns(true);
             
             var handler = new ProcessPaymentHandler(_paymentHistoryRepo, _bankApi);
-            var paymentRequest = new PaymentRequest();
+            var paymentRequest = BuildValidTestPaymentRequest();
 
             // act
             var ex = Assert.Throws<BadRequestException>(() => handler.Handle(paymentRequest));
@@ -73,7 +72,7 @@ namespace UnitTests
         public void GivenAPaymentRequestThatSucceeds_ThenRequestLogged_AndLoggedDetailsShowSuccess()
         {
             // arrange
-            var paymentRequest = new PaymentRequest();
+            var paymentRequest = BuildValidTestPaymentRequest();
 
             _bankApi.MakePayment(paymentRequest).Returns(true);
             
@@ -90,7 +89,7 @@ namespace UnitTests
         public void GivenAPaymentRequestThatSucceeds_ThenRequestLogged_AndLoggedDetailsShowFailure()
         {
             // arrange
-            var paymentRequest = new PaymentRequest();
+            var paymentRequest = BuildValidTestPaymentRequest();
 
             _bankApi.MakePayment(paymentRequest).Returns(false);
             
