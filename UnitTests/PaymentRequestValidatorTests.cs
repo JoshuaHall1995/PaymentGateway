@@ -164,6 +164,21 @@ namespace UnitTests
         
         // Would be expanded for unexpected type
         
+        [Fact]
+        public void GivenAPaymentRequest_CurrencyMissing_ShouldBeInvalid()
+        {
+            // arrange
+            var validator = new ProcessPaymentValidator();
+            var paymentRequest = BuildValidTestPaymentRequest();
+            paymentRequest.Currency = null;
+
+            // act
+            var result = validator.Validate(paymentRequest);
+
+            // assert
+            Assert.False(result.IsValid);
+        }
+        
         
         private static PaymentRequest BuildValidTestPaymentRequest()
         {
@@ -174,7 +189,8 @@ namespace UnitTests
                 Amount = "12.12",
                 ExpiryDate = "Test",
                 RequestId = Guid.NewGuid().ToString(),
-                RequestType = "Sandbox"
+                RequestType = "Sandbox",
+                Currency = "GBP"
             };
         }
     }

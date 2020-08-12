@@ -27,7 +27,8 @@ namespace PaymentGateway
                 RequestId = request.RequestId,
                 RequestType = request.RequestType,
                 Timestamp = DateTimeOffset.UtcNow,
-                Success = isSuccess
+                Success = isSuccess,
+                Currency = request.Currency
             };
         }
         
@@ -40,7 +41,8 @@ namespace PaymentGateway
                 Amount = Convert.ToDouble(request.Amount),
                 HashedCardNumber = HashCardNumber(request.CardNumber),
                 RequestId = request.RequestId,
-                Success = request.Success
+                Success = request.Success,
+                Currency = request.Currency
             };
         }
     }

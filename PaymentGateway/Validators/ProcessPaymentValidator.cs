@@ -14,6 +14,7 @@ namespace PaymentGateway.Validators
             RuleFor(x => x.RequestId).NotNull();
             RuleFor(x => x.RequestType).NotNull();
             RuleFor(x => x.ExpiryDate).NotNull();
+            RuleFor(x => x.Currency).NotNull();
         }
 
         private bool IsDouble(string value)

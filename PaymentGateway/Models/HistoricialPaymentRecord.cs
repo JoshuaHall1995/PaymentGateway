@@ -14,5 +14,6 @@ namespace PaymentGateway.Models
         public string HashedCardNumber { get; set; }
         public double Amount { get; set; }
         public bool Success { get; set; }
+        public string Currency { get; set; }
     }
 }

@@ -17,6 +17,8 @@ namespace PaymentGateway.Models
         // In this imaginary world when each payment is created they provide us a id. This could be a guid they
         // create for each request or a combination of ISO timestamp and payment details. This is to make tracking
         // previous transactions easier and for duplicate identifaction. 
-
+        
+        public string Currency { get; set; } 
+        // Could be a enum so we can check it is against a selected list of curre cies accepted by the bank.
     }
 }
